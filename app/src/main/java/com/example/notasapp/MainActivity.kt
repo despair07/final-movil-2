@@ -148,12 +148,24 @@ class MainActivity : AppCompatActivity(),
                 true
             }
             R.id.set_alarm -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                    if (!alarmManager.canScheduleExactAlarms()) {
+                        val intent = Intent(android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
+                        intent.data = android.net.Uri.parse("package:$packageName")
+                        startActivity(intent)
+                        Toast.makeText(this, "Concede permiso para programar alarmas exactas", Toast.LENGTH_LONG).show()
+                        return true
+                    }
+                }
+                // Ya tiene permiso o es versión menor
                 onAlarmClicked(selectedNote)
                 true
             }
             else -> false
         }
     }
+
 
     // Solo muestra selector de HORA, y programa alarma para hoy o mañana si la hora ya pasó
     override fun onAlarmClicked(note: Note) {
@@ -187,6 +199,21 @@ class MainActivity : AppCompatActivity(),
     private fun scheduleAlarm(note: Note, timeInMillis: Long) {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
+        // 👇 Esta es la verificación que falta
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (!alarmManager.canScheduleExactAlarms()) {
+                Toast.makeText(
+                    this,
+                    "Permiso para alarmas exactas no concedido. Ve a configuración.",
+                    Toast.LENGTH_LONG
+                ).show()
+                val intent = Intent(android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
+                intent.data = android.net.Uri.parse("package:$packageName")
+                startActivity(intent)
+                return
+            }
+        }
+
         val intent = Intent(this, ReminderReceiver::class.java).apply {
             putExtra("note_id", note.id)
             putExtra("note_title", note.title)
@@ -218,6 +245,7 @@ class MainActivity : AppCompatActivity(),
 
         Toast.makeText(this, "Alarma programada para la nota: ${note.title}", Toast.LENGTH_SHORT).show()
     }
+
 
 
     override fun onRequestPermissionsResult(
