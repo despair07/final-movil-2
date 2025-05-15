@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="color1">#FFE57373</color> <!-- rojo claro -->
+    <color name="color2">#FF64B5F6</color> <!-- azul claro -->
+    <color name="color3">#FF81C784</color> <!-- verde claro -->
+    <color name="color4">#FFFFB74D</color> <!-- naranja claro -->
+    <color name="color5">#FFBA68C8</color> <!-- violeta claro -->
+    <color name="color6">#FFA1887F</color> <!-- marrón rosado -->
+    <color name="color7">#FF4DB6AC</color> <!-- verde azulado -->
+    <color name="color8">#FF90A4AE</color> <!-- gris azulado -->
+    <color name="color9">#FFDCE775</color> <!-- lima -->
+    <color name="color10">#FFFF8A65</color> <!-- naranja fuerte -->
+    <color name="color11">#FF7986CB</color> <!-- azul violeta -->
+    <color name="color12">#FFAED581</color> <!-- verde musgo -->
+    <color name="purple_700">#3700B3</color>
+
+</resources>
