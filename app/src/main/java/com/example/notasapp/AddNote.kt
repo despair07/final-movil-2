@@ -37,10 +37,7 @@ class AddNote : AppCompatActivity() {
             isUpdate = true
         }
 
-        // Listener para seleccionar alarma
-        binding.tvSetAlarm.setOnClickListener {
-            showDateTimePicker()
-        }
+
 
         // Guardar nota y alarma
         binding.imgCheck.setOnClickListener {
